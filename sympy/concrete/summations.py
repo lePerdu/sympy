@@ -412,6 +412,15 @@ class Sum(AddWithLimits, ExprWithIntLimits):
             if p2_series_test[p] < 1:
                 return S.false
 
+        ### ----------- ratio test ----------- ###
+        lim = Limit(abs(sequence_term.subs(sym, sym+1)/sequence_term), sym, S.Infinity)
+        lim_evaluated = lim.doit()
+        if lim_evaluated.is_number:
+            if lim_evaluated < 1:
+                return S.true
+            if lim_evaluated > 1:
+                return S.false
+
         ### ----------- root test ---------------- ###
         lim = Limit(abs(sequence_term)**(1/sym), sym, S.Infinity)
         lim_evaluated = lim.doit()
