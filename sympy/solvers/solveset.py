@@ -153,6 +153,9 @@ def _invert_real(f, g_ys, symbol):
             res = imageset(Lambda(n, real_root(n, expo)), g_ys)
             if expo.is_rational:
                 numer, denom = expo.as_numer_denom()
+                if denom % 2 == 0 and \
+                        g_ys.is_subset(Interval(S.NegativeInfinity, 0, right_open=True)):
+                    return (symbol, EmptySet())
                 if numer == S.One or numer == - S.One:
                     return _invert_real(base, res, symbol)
                 else:
